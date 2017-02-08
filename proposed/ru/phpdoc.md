@@ -144,7 +144,6 @@ PSR-5: PHPDoc
         }
     }
   ``` 
-
   An example of use that falls beyond the scope of this Standard is to document
   the variable in a foreach explicitly; several IDEs use this information to
   assist their auto-completion functionality.
@@ -754,21 +753,21 @@ root, a constant or property in a class MUST inherit the following tags:
 
 * [@var](#722-type)
 
-## 7. Tags
+## 7. Метки
 
 Unless specifically mentioned in the description each tag MAY occur zero or more
 times in each "DocBlock".
 
 ### 7.1.. @api
 
-The @api tag is used to declare "Structural Elements" as being suitable for
-consumption by third parties.
+Тэг @api указанизывает, что Структурный элемент пригоден для использования
+третьими лицами. 
 
-#### Syntax
+#### Синтаксис
 
     @api
 
-#### Description
+#### Описание
 
 The @api tag represents those "Structural Elements" with a public visibility
 which are intended to be the public API components for a library or framework.
@@ -798,13 +797,13 @@ function showVersion()
 
 ### 7.2. @author
 
-The @author tag is used to document the author of any "Structural Element".
+Метка @author указывает на аторства любого Структурного элемента в этом документе.  
 
 #### Синтаксис
 
-    @author [name] [<email address>]
+    @author [имя] [<электронная почта>]
 
-#### Description
+#### Описание
 
 The @author tag can be used to indicate who has created a "Structural Element"
 or has made significant modifications to it. This tag MAY also contain an
@@ -816,22 +815,21 @@ adhere to the syntax defined in RFC 2822.
 
 ```php
 /**
- * @author My Name
- * @author My Name <my.name@example.com>
+ * @author Имя автора
+ * @author Имя автора <my.name@example.com>
  */
 ```
 
 ### 7.3. @category [deprecated]
 
-The @category tag is used to organize groups of packages together but is
-deprecated in favour of occupying the top-level with the @package tag.
-As such, usage of this tag is NOT RECOMMENDED.
+Тэг @category используется для группировки в пакеты, за исключением верхнего уровня,
+где используется тэг @package. Так использовать этот тэг НЕ РЕКОМЕНДУЕТСЯ.
 
-#### Syntax
+#### Синтаксис
 
     @category [description]
 
-#### Description
+#### Описание
 
 The @category tag was meant in the original de-facto Standard to group several
 @packages into one category. These categories could then be used to aid
@@ -944,11 +942,9 @@ If the associated element is superseded by another it is RECOMMENDED to add a
 
 ### 7.6. @example
 
-Тэг @example используетя для ссылки на файл из внешнего ресурса
-с кодом примера использования Структурного элемета. The @example tag is used to 
-link to an external source code file which contains
-an example of use for the current "Structural element". An inline variant exists
-with which code from an example file can be shown inline with the Description.
+Тэг @example используетя для указания ссылки на файл из внешнего ресурса
+с кодом примера использования Структурного элемета. Существует inline 
+разновидность, когда файл с примером кода может быть вставленн прямо в описание. 
 
 #### Синтаксис
 
@@ -1001,16 +997,16 @@ regards to the start and end limit.
 > The previous syntax was: {@example [URI] [<start>] [<end>]} and did not support
 > the same rules as the substr function.
 
-#### Examples
+#### Пример
 
 ```php
 /**
- * Counts the number of items.
+ * Счётчик колличества элементов.
  * {@example http://example.com/foo-inline.https:2..8}
  *
  * @example http://example.com/foo.phps
  *
- * @return int Indicates the number of items.
+ * @return int Колличетво элементов.
  */
 function count()
 {
@@ -1125,30 +1121,26 @@ function count()
 
 ### 7.9. @license
 
-Тэг @license используется для указания лицензии применяемой к Структурному элементу.
+Тэг @license указывает на лицензии, применяемую к Структурному элементу.
 
 #### Синтаксис
 
     @license [<SPDX индентификатор>|URI] [название]
 
-#### Description
+#### Описание
 
-The @license tag provides licensing information to the user, which is applicable
-to 'Structural Elements' and their child elements.
+Метка @license направляет пользователя на лицензию, под которой применяется 
+Структурный элемент и его составляющие.
 
-The first parameter MUST be either a 'SPDX identifier', as defined by the
-[SPDX Open Source License Registry][SPDX], or a URL to a document containing
-the full license text.
+Первый параметр ДОЛЖЕН быть SPDX код, приведённый в 
+[SPDX Open Source License Registry][SPDX], или URL документа с полным текстом
+лицензии. Вторым параметром может быть официальное название применяемой лицензии.
 
-The second parameter MAY be the official name of the applicable license.
+РЕКОМЕНДУЕТСЯ только указать идентификатор 'SPDX' и применить метку @license только к 
+файлу на уровне PHPDoc, поскольку применение множественной лицензии может привести к 
+путанице, какая лицензия применяется в данный момент.
 
-It is RECOMMENDED to only specify an 'SPDX identifier' and to apply @license
-tags to file-level 'PHPDoc' only, since multiple varying licenses within a
-single file may cause confusion with regard to which license applies at which
-time.
-
-In case multiple licenses apply, there MUST be one @license tag per applicable
-license.
+В случае добавление дополнительной лицензии, она ДОЛЖНА быть указана в метке @license.
 
 #### Пример
 
@@ -1162,7 +1154,7 @@ license.
  */
 ```
 
-### 7.10. @link [deprecated]
+### 7.10. @link [устарел]
 
 *This tag is deprecated in favor of the `@see` tag, which since this
 specification may relate to URIs.*
@@ -1170,7 +1162,7 @@ specification may relate to URIs.*
 The @link tag indicates a custom relation between the associated
 "Structural Element" and a website, which is identified by an absolute URI.
 
-#### Syntax
+#### Синтаксис
 
     @link [URI] [description]
 
@@ -1217,19 +1209,19 @@ function count()
 
 ### 7.11. @method
 
-The @method allows a class to know which 'magic' methods are callable.
+@method позволяет классу знать о своих магических методах или Callback-функциях.
 
-#### Syntax
+#### Синтаксис
 
     @method [return type] [name]([type] [parameter], [...]) [description]
 
-#### Description
+#### Описание
 
-The @method tag is used in situation where a class contains the `__call()` magic
-method and defines some definite uses.
+Тэг @method используется для указания сигнатуры, когда класс использует
+магический метод `__call()` и указывает конкретные способы его использования.
 
-An example of this is a child class whose parent has a `__call()` to have dynamic
-getters or setters for predefined properties. The child knows which getters and
+Например, для класса-потомока, когда его родительский класс использует `__call()`
+для динамической генерации геттеров и сеттеров свойств. The child knows which getters and
 setters need to be present but relies on the parent class to use the `__call()`
 method to provide it. In this situation, the child class would have a @method
 tag for each magic setter or getter method.
@@ -1243,7 +1235,7 @@ be omitted; in which case 'void' is implied.
 @method tags MUST NOT be used in a PHPDoc that is not associated with a
 *class* or *interface*.
 
-#### Examples
+#### Пример
 
 ```php
 class Parent
@@ -1267,14 +1259,15 @@ class Child extends Parent
 
 ### 7.12. @package
 
-The @package tag is used to categorize "Structural Elements" into logical
-subdivisions.
+Метка @package испеользуется для логического разделения Структурного 
+элемента на части.
 
-#### Syntax
+#### Синтаксис
 
-    @package [level 1]\[level 2]\[etc.]
+    @package [уровень 1]\[уровень 2]\[..]
 
-#### Description
+#### Описание
+
 
 The @package tag can be used as a counterpart or supplement to Namespaces.
 Namespaces provide a functional subdivision of "Structural Elements" where the
@@ -1306,7 +1299,7 @@ depending where it is defined.
 
 This tag MUST NOT occur more than once in a "DocBlock".
 
-#### Examples
+#### Пример
 
 ```php
 /**
@@ -1320,7 +1313,7 @@ This tag MUST NOT occur more than once in a "DocBlock".
 
 #### Синтаксис
 
-    @param ["Type"] [name] [<description>]
+    @param ["Тип"] [имя] [<описание>]
 
 #### Description
 
@@ -1339,15 +1332,15 @@ method.
 This tag MUST NOT occur more than once per parameter in a "PHPDoc" and is
 limited to "Structural Elements" of type method or function.
 
-#### Examples
+#### Пример
 
 ```php
 /**
- * Counts the number of items in the provided array.
+ * Счётчик числа элементов в массиве.
  *
- * @param mixed[] $items Array structure to count the elements of.
+ * @param mixed[] $items Массив структур для счётчика его элементов.
  *
- * @return int Returns the number of elements.
+ * @return int Возращает число элементов.
  */
 function count(array $items)
 {
@@ -1395,7 +1388,7 @@ property.
 @property tags MUST NOT be used in a "PHPDoc" that is not associated with
 a *class* or *interface*.
 
-#### Examples
+#### Пример
 
 ```php
 class Parent
@@ -1417,13 +1410,13 @@ class Child extends Parent
 
 ### 7.15. @return
 
-The @return tag is used to document the return value of functions or methods.
+Метка @return указывает возвращаемое значение методом или функцией. 
 
-#### Syntax
+#### Синтаксис
 
-    @return <"Type"> [description]
+    @return <"тип"> [описане]
 
-#### Description
+#### Описание
 
 With the @return tag it is possible to document the return type of a
 function or method. When provided, it MUST contain a "Type" (See Appendix A)
@@ -1444,11 +1437,11 @@ MAY be:
 This tag MUST NOT occur more than once in a "DocBlock" and is limited to the
 "DocBlock" of a "Structural Element" of a method or function.
 
-#### Examples
+#### Пример
 
 ```php
 /**
- * @return int Indicates the number of items.
+ * @return int Колличество элементов.
  */
 function count()
 {
@@ -1456,7 +1449,7 @@ function count()
 }
 
 /**
- * @return string|null The label's text or null if none provided.
+ * @return string|null Текст ярлыка или пусто, если нет его.
  */
 function getLabel()
 {
@@ -1466,39 +1459,40 @@ function getLabel()
 
 ### 7.16. @see
 
-The @see tag indicates a reference from the associated "Structural Elements" to
-a website or other "Structural Elements".
+Метка @see перенаправляет на сайт или другой Структурный элемент, с которым
+ассоциирован данный Структурный элемент.
 
-#### Syntax
+#### Синтаксис
 
-    @see [URI | "FQSEN"] [<description>]
+    @see [URI | "FQSEN"] [<описание>]
 
-#### Description
+#### Описание
 
-The @see tag can be used to define a reference to other "Structural Elements"
-or to a URI.
+Метка @see указывает на другие Структурные элементы или URI.
 
+При указании ссылки на другой Структурный элемент Вы можете ссылаться на 
+спецификацию этого элемента для  
 When defining a reference to another "Structural Elements" you can refer to a
 specific element by appending a double colon and providing the name of that
 element (also called the "FQSEN").
 
-A URI MUST be complete and well-formed as specified in [RFC 2396][RFC2396].
-
+URI ДОЛЖЕН быть полным и иметь формат в соответствии с спецификацией [RFC 2396][RFC2396].
+ 
 The @see tag SHOULD have a description to provide additional information
 regarding the relationship between the element and its target. Additionally, the
 @see tag MAY have a tag specialization to add further definition to this
 relationship.
 
-#### Examples
+#### Пример
 
 ```php
 /**
  * @see number_of() :alias:
  * @see MyClass::$items           For the property whose items are counted.
- * @see MyClass::setItems()       To set the items for this collection.
- * @see http://example.com/my/bar Documentation of Foo.
+ * @see MyClass::setItems()       Установка элемента для этого набора.
+ * @see http://example.com/my/bar Документация по классу Foo.
  *
- * @return int Indicates the number of items.
+ * @return int Колличество элементов.
  */
 function count()
 {
@@ -1529,12 +1523,12 @@ element.
 The @since tag SHOULD NOT be used to show the current version of an element, the
 @version tag MAY be used for that purpose.
 
-#### Examples
+#### Пример
 
 ```php
 /**
- * This is Foo
- * @version 2.1.7 MyApp
+ * Это Foo
+ * @version 2.1.7 моё приложение
  * @since 2.0.0 introduced
  */
 class Foo
