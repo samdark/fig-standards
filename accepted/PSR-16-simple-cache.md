@@ -43,13 +43,13 @@ Implementations MAY provide a mechanism for a user to specify a default TTL if o
 
 Implementing libraries MUST support all serializable PHP data types, including:
 
-* **Strings* - Character strings of arbitrary size in any PHP-compatible encoding.
-* **Integers* - All integers of any size supported by PHP, up to 64-bit signed.
-* **Floats* - All signed floating point values.
-* **Boolean* - True and False.
-* **Null* - The null value (although it will not be distinguishable from a cache miss when reading it back out).
-* **Arrays* - Indexed, associative and multidimensional arrays of arbitrary depth.
-* **Object* - Any object that supports lossless serialization and deserialization such that $o == unserialize(serialize($o)). Objects MAY leverage PHP’s Serializable interface, `__sleep()` or `__wakeup()` magic methods, or similar language functionality if appropriate.
+* **Strings** - Character strings of arbitrary size in any PHP-compatible encoding.
+* **Integers** - All integers of any size supported by PHP, up to 64-bit signed.
+* **Floats** - All signed floating point values.
+* **Boolean** - True and False.
+* **Null** - The null value (although it will not be distinguishable from a cache miss when reading it back out).
+* **Arrays** - Indexed, associative and multidimensional arrays of arbitrary depth.
+* **Object** - Any object that supports lossless serialization and deserialization such that $o == unserialize(serialize($o)). Objects MAY leverage PHP’s Serializable interface, `__sleep()` or `__wakeup()` magic methods, or similar language functionality if appropriate.
 
 All data passed into the Implementing Library MUST be returned exactly as passed. That includes the variable type. That is, it is an error to return (string) 5 if (int) 5 was the value saved. Implementing Libraries MAY use PHP’s serialize()/unserialize() functions internally but are not required to do so. Compatibility with them is simply used as a baseline for acceptable object values.
 
@@ -65,7 +65,8 @@ In addition it has methods for dealing with multiple sets of cache entries such 
 
 An instance of CacheInterface corresponds to a single collection of cache items with a single key namespace, and is equivalent to a “Pool” in PSR-6. Different CacheInterface instances MAY be backed by the same datastore, but MUST be logically independent.
 
-`<?php
+```php
+<?php
 
 namespace Psr\SimpleCache;
 
@@ -178,11 +179,13 @@ interface CacheInterface
      *   MUST be thrown if the $key string is not a legal value.
      */
     public function has($key);
-}`
+}
+```
 
 ## 2.2 CacheException
 
-`<?php
+```php
+<?php
 namespace Psr\SimpleCache;
 
 /**
@@ -190,11 +193,13 @@ namespace Psr\SimpleCache;
  */
 interface CacheException
 {
-}`
+}
+```
 
 ## 2.3 InvalidArgumentException
 
-`<?php
+```php
+<?php
 
 namespace Psr\SimpleCache;
 
@@ -206,4 +211,5 @@ namespace Psr\SimpleCache;
  */
 interface InvalidArgumentException extends CacheException
 {
-}`
+}
+```
