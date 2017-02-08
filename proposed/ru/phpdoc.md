@@ -3,9 +3,9 @@ PSR-5: PHPDoc
 
 ## Table Of Contents
 
-- [1. Introduction](#1-introduction)
-- [2. Conventions Used In This Document](#2-conventions-used-in-this-document)
-- [3. Definitions](#3-definitions)
+- [1. Introduction](#1-введение)
+- [2. Conventions Used In This Document](#2-соглашение по использованию данного докумета)
+- [3. Definitions](#3-определения)
 - [4. Basic Principles](#4-basic-principles)
 - [5. The PHPDoc Format](#5-the-phpdoc-format)
   - [5.1. Summary](#51-summary)
@@ -23,30 +23,30 @@ PSR-5: PHPDoc
     - [6.3.1. Class Or Interface](#61-class-or-interface)
     - [6.3.2. Function Or Method](#62-function-or-method)
     - [6.3.3. Constant Or Property](#63-constant-or-property)
-- [7. Tags](#7-tags)
+- [7. Tags](#7-тэги)
   - [7.1.  @api](#71-api)
-  - [7.2.  @author](#72-author)
-  - [7.3.  @category [deprecated]](#73-category-deprecated) 
-  - [7.4.  @copyright](#74-copyright)
-  - [7.5.  @deprecated](#75-deprecated)
-  - [7.6.  @example](#76-example)
-  - [7.7.  @global](#77-global)
+  - [7.2.  @author](#72-автор)
+  - [7.3.  @category [deprecated]](#73-устаревшая категория) 
+  - [7.4.  @copyright](#74-копирайт)
+  - [7.5.  @deprecated](#75-устаревший)
+  - [7.6.  @example](#76-пример)
+  - [7.7.  @global](#77-глобальный)
   - [7.8.  @internal](#78-internal)
-  - [7.9.  @license](#79-license)
-  - [7.10. @link [deprecated]](#710-link-deprecated)
-  - [7.11. @method](#711-method)
-  - [7.12. @package](#712-package)
-  - [7.13. @param](#713-param)
-  - [7.14. @property](#714-property)
-  - [7.15. @return](#715-return)
+  - [7.9.  @license](#79-лицензия)
+  - [7.10. @link [deprecated]](#710-устаревшая ссылка)
+  - [7.11. @method](#711-метод)
+  - [7.12. @package](#712-пакет)
+  - [7.13. @param](#713-параметр)
+  - [7.14. @property](#714-свойство)
+  - [7.15. @return](#715-возвращяемое значение)
   - [7.16. @see](#716-see)
   - [7.17. @since](#717-since)
   - [7.18. @subpackage [deprecated]](#719-subpackage-deprecated)
   - [7.19. @throws](#720-throws)
   - [7.20. @todo](#721-todo)
   - [7.21. @uses](#723-uses)
-  - [7.22. @var](#724-var)
-  - [7.23. @version](#725-version)
+  - [7.22. @var](#724-переменная)
+  - [7.23. @version](#725-версия)
 - [Appendix A. Types](#appendix-a-types)
   - [ABNF](#abnf)
   - [Details](#details)
@@ -55,67 +55,66 @@ PSR-5: PHPDoc
 - Appendix B. Differences Compared With The De-facto PHPDoc Standard
 
 
-## 1. Introduction
+## 1. Введение
 
-The main purpose of this PSR is to provide a complete and formal definition of
-the PHPDoc standard. This PSR deviates from its predecessor, the de-facto PHPDoc
-Standard associated with [phpDocumentor 1.x][PHPDOC.ORG], to provide
-support for newer features in the PHP language and to address some of the
-shortcomings of its predecessor.
+Данный PSR является наследкиком PHPDoc, являющийся спецификацией 
+к [phpDocumentor 1.x][PHPDOC.ORG], призван полностью переопределить его
+для поддержки новых возможностей в языка PHP, которых так нехватало.
 
-This document SHALL NOT:
+Данный документ НЕ ЯВЛЯЕТСЯ:
 
-* Describe a standard for implementing annotations via PHPDoc. Although it does
-  offer versatility which makes it possible to create a subsequent PSR based on
-  current practices. See [chapter 5.3](#53-tags) for more information on this
-  topic.
-* Describe best practices or recommendations for Coding Standards on the
-  application of the PHPDoc standard. This document is limited to a formal
-  specification of syntax and intention.
+* Спецификацией к реализиции PHPDoc. Несмотря на то, что это делает его универсальным
+  и предоставляет создать последующую PSR, основанную на существующей практике. 
+  См [раздел 5.3](# 53-теги) для получения дополнительной информации по этой теме.
+* Конспектом предовых практик или рекомендаций по оформлению кода с использованием
+  PHPDoc. Этот документ ограничиватеся формальным описанием синтаксиса и его
+  использования.
 
-## 2. Conventions Used In This Document
+## 2. Соглашение по использованию данного докумета
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
-"SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be
-interpreted as described in [RFC 2119][RFC2119].
+Коючевые слова "ДОЛЖНО" ("MUST"), "НЕДОПУСТИМО"("MUST NOT"), "ТРЕБУЕТСЯ" ("REQUIRED"), 
+"НУЖНО" ("SHALL"), "НЕПОЗВОЛЯЕТСЯ" ("SHALL NOT"), "СЛЕДУЕТ" ("SHOULD"),
+"НЕДОПУСТИМО" ("SHOULD NOT"), "РЕКОМЕНДУЕТСЯ" ("RECOMMENDED"), "МОЖЕТ" ("MAY") и
+"НЕОБЯЗАТЕЛЬНО" ("OPTIONAL") в этом документе должны расцениваться так, как описано 
+в [RFC 2119][RFC2119].
 
-## 3. Definitions
+## 3. Определения
 
-* "PHPDoc" is a section of documentation which provides information on aspects 
-  of a "Structural Element".
+* "PHPDoc" представляет собой часть документации, которая содержит информацию 
+  по различным аспектам "структурного элемента".
 
-  > It is important to note that a PHPDoc and a DocBlock are two separate
-  > entities. The DocBlock is the combination of a DocComment, which is a type
-  > of comment, and a PHPDoc entity. It is the PHPDoc entity that contains the
-  > syntax as described in this specification such as the description and tags.
+  > Важно отметить, что PHPDoc и Блоком описания это две разные сущности.
+  > Блок документации сочетается с Докуметируемым комментарием и является разновидностью
+  > комментариев, также как и PHPDoc. Контейнер PHPDoc служит синтаксическим блоком описания, 
+  > построенным на описания и метках.
 
-* "Structural Element" is a collection of Programming Constructs which MAY be
-  preceded by a DocBlock. The collection contains the following constructs:
+* "Страктурный элемент" набор программных контрукций который МОГУТ быть вставленны
+  блок комметария. Он может содержать:
 
-  * file
-  * require(_once)
-  * include(_once)
-  * class
-  * interface
-  * trait
-  * function (including methods)
-  * property
-  * constant
-  * variables, both local and global scope.
+  * файлы
+  * препроцессорные вставки require(_once)
+  * обычные вставки include(_once)
+  * классы
+  * интерфейсы
+  * преси (трейты)
+  * функции
+  * свойства
+  * константы
+  * переменны, как с локальной, так и с глобальной областью видимости.
 
-  It is RECOMMENDED to precede a "Structural Element" with a DocBlock where it is
-  defined and not with each usage. It is common practice to have the DocBlock
-  precede a Structural Element but it MAY also be separated by a an undetermined 
-  number of empty lines.
+  Рекомендуется описывать Структурный элемент Блоком документации только при 
+  его определения, а не при каждом его испльзовании. Общая практика такова:
+  непосредственно предварять Структурный элемент Блоком документации, 
+  но также ВОЗМОЖНО их разделение несколькими пустыми строками.
 
-  Example:
+  Пример:
 
   ```php
-  /** @var int $int This is a counter. */
+  /** @var int $int Счётчик. */
   $int = 0;
 
 
-  // there should be no docblock here
+  // здесь не дожно быть Блока документации
   $int++;
   ```
 
@@ -123,28 +122,28 @@ interpreted as described in [RFC 2119][RFC2119].
 
   ```php
     /**
-     * This class acts as an example on where to position a DocBlock.
+     *  Этот класс создан для того, чтобы показать расположение Блока документации.
      */
     class Foo
     {
-        /** @var string|null $title contains a title for the Foo with a max. length of 24 characters */
+        /** @var string|null $title содержит заголовок для Foo длинной до 24 символов */
         protected $title = null;
 
 
         /**
-         * Sets a single-line title.
+         * Установка однострочного заговока.
          *
-         * @param string $title A text with a maximum of 24 characters.
+         * @param string $title Строка не более чем в 24 символа.
          *
          * @return void
          */
         public function setTitle($title)
         {
-            // there should be no docblock here
+            // здесь не дожно быть Блока документации
             $this->title = $title;
         }
     }
-  ```
+  ``` 
 
   An example of use that falls beyond the scope of this Standard is to document
   the variable in a foreach explicitly; several IDEs use this information to
@@ -156,29 +155,29 @@ interpreted as described in [RFC 2119][RFC2119].
   ```php
   /** @var \Sqlite3 $sqlite */
   foreach($connections as $sqlite) {
-      // there should be no docblock here
+      // здесь не должно быть Блока документации
       $sqlite->open('/my/database/path');
       <...>
   }
   ```
 
-* "DocComment" is a special type of comment which MUST
+* Документирующий комментарий - разновидность комментария, котороя ДОЛЖНА
 
-  - start with the character sequence `/**` followed by a whitespace character
-  - end with `*/` and
-  - have zero or more lines in between.
+  - начинаться с последовательности символов `/**`, за которыми следует пробел,
+  - заканчиваться на `*/` и,
+  - возможно, содержать несколько строк между ними.
 
   In case a DocComment spans multiple lines then every line MUST start with
   an asterisk (`*`) that SHOULD be aligned with the first asterisk of the
   opening clause.
 
-  Single line example:
+  Однострочный:
 
   ```php
   /** <...> */
   ```
 
-  Multiline example:
+  Многострочный:
 
   ```php
     /**
@@ -233,8 +232,10 @@ interpreted as described in [RFC 2119][RFC2119].
           function = fqnn "\" name "()"
           name     = (ALPHA / "_") *(ALPHA / DIGIT / "_")
 
-## 4. Basic Principles
+## 4. Основные принципы
 
+
+  PHPDoc всегда должен быть заключён в Докментирующий комментарий,  
 * A PHPDoc MUST always be contained in a "DocComment"; the combination of these
   two is called a "DocBlock".
 
@@ -274,10 +275,9 @@ interpreted as described in [RFC 2119][RFC2119].
   > }
   > ```
 
-## 5. The PHPDoc Format
+## 5. Формат PHPDoc
 
-The PHPDoc format has the following [ABNF][RFC5234]
-definition:
+Формат PHPDoc отвечает сдедующим [ABNF][RFC5234] параметрам:
 
     PHPDoc             = [summary] [description] [tags]
     inline-phpdoc      = "{" *SP PHPDoc *SP "}"
@@ -294,13 +294,12 @@ definition:
     tag-signature      = "(" *tag-argument ")"
     tag-argument       = *SP 1*CHAR [","] *SP
 
-Examples of use are included in chapter 5.4.
+Пример испльзования приведён в главе 5.4.
 
-### 5.1. Summary
+### 5.1. Заголовок
 
-A Summary MUST contain an abstract of the "Structural Element" defining the
-purpose. It is RECOMMENDED for Summaries to span a single line or at most two
-but not more than that.
+Заголовок ДОЛЖЕН содержать назначения Структурного элемента. Для Заголовка  
+РЕКОМЕНДУЕТСЯ отводить одну или две строки, но не более.
 
 A Summary MUST end with either
 
@@ -317,17 +316,18 @@ chapter), no recommendation is done to support a mark-up language. It is
 explicitly left up to the implementing application whether it wants to support 
 this or not.
 
-### 5.2. Description
+### 5.2. Описание
 
-The Description is OPTIONAL but SHOULD be included when the
-"Structural Element", which this DocBlock precedes, contains more operations, or
-more complex operations, than can be described in the Summary alone.
+Описание - НЕОБЯЗАТЕЛЬНЫЙ элемент, но его СЛЕДУЕТ включать, когда Структурный элемент,
+которому предшествуте Блок документации, содержит слишком много действий или же они
+столь сложны, что не могу быть полностью описанны одним Заголовком.
 
+Любое приложение может быть описано Описанием - это РЕКОМЕНДАЦИЯ поддержки
 Any application parsing the Description is RECOMMENDED to support the
 Markdown mark-up language for this field so that it is possible for the author
 to provide formatting and a clear way of representing code examples.
 
-Common uses for the Description are (amongst others):
+Основное использование Описания (среди других):
 
 * To provide more detail than the Summary on what this method does.
 * To specify of what child elements an input or output array, or object, is
@@ -335,7 +335,7 @@ Common uses for the Description are (amongst others):
 * To provide a set of common use cases or scenarios in which the
   "Structural Element" may be applied.
 
-### 5.3. Tags
+### 5.3. Тэги
 
 Tags provide a way for authors to supply concise meta-data regarding the
 succeeding "Structural Element". Each tag starts on a new line, followed
@@ -346,9 +346,9 @@ If meta-data is provided, it MAY span multiple lines and COULD follow a
 strict format, and as such provide parameters, as dictated by the type of tag.
 The type of the tag can be derived from its name.
 
-For example:
+Для примера:
 
-> `@param string $argument1 This is a parameter.`
+> `@param string $argument1 Это параметер.`
 >
 > The above tag consists of a name ('param') and meta-data
 > ('string $argument1 This is a parameter.') where the meta-data is split into a
@@ -362,11 +362,11 @@ same or the subsequent line and interpret it in the same way.
 So the following tags are semantically identical:
 
     /**
-     * @var string This is a description.
-     * @var string This is a
-     *    description.
+     * @var string Это описание.
+     * @var string Это
+     *    описание.
      * @var string
-     *    This is a description.
+     *    Это описание.
      */
 
 A variation of this is where, instead of a description, a tag signature is used;
@@ -444,7 +444,7 @@ that are registered with/understood by that application and apply custom
 behaviour, but are only expected to implement the preceding tag name as defined
 in this standard.
 
-For example:
+Для примера:
 
 > `@see:unit-test \Mapping\EntityTest::testGetId`
 >
@@ -699,7 +699,7 @@ In the example above it is indicated that the Description of this PHPDoc is a
 combination of the Description of the super-element, indicated by the 
 `{@inheritDoc}` inline tag, and the subsequent body text.
 
-### 6.3. Class Or Interface
+### 6.3. Класс или Интерфейс
 
 In addition to the inherited descriptions and tags as defined in this chapter's
 root, a class or interface MUST inherit the following tags:
@@ -714,12 +714,12 @@ The @subpackage MUST NOT be inherited if the @package name of the
 super-class (or interface) is not the same as the @package of the child class
 (or interface).
 
-Example:
+Пример:
 
 ```php
 /**
- * @package    Framework
- * @subpackage Controllers
+ * @package    Фреймворк
+ * @subpackage Контроллер
  */
 class Framework_ActionController
 {
@@ -727,7 +727,7 @@ class Framework_ActionController
 }
 
 /**
- * @package My
+ * @package Мой
  */
 class My_ActionController extends Framework_ActionController
 {
@@ -738,7 +738,7 @@ class My_ActionController extends Framework_ActionController
 In the example above the My_ActionController MUST NOT inherit the subpackage
 _Controllers_.
 
-### 6.4. Method
+### 6.4. Методы
 
 In addition to the inherited descriptions and tags as defined in this chapter's
 root, a function or method in a class or interface MUST inherit the following tags:
@@ -747,7 +747,7 @@ root, a function or method in a class or interface MUST inherit the following ta
 * [@return](#715-return)
 * [@throws](#720-throws)
 
-### 6.5. Constant Or Property
+### 6.5. Константы и свойства
 
 In addition to the inherited descriptions and tags as defined in this chapter's
 root, a constant or property in a class MUST inherit the following tags:
@@ -780,11 +780,11 @@ project. It is however RECOMMENDED that all tagged "Structural Elements" SHOULD
 NOT change after publication unless the new version is tagged as breaking
 Backwards Compatibility.
 
-#### Examples
+#### Пример
 
 ```php
 /**
- * This method will not change until a major release.
+ * Этот метод не изменится до мажорного релиза.
  *
  * @api
  *
@@ -800,7 +800,7 @@ function showVersion()
 
 The @author tag is used to document the author of any "Structural Element".
 
-#### Syntax
+#### Синтаксис
 
     @author [name] [<email address>]
 
@@ -858,10 +858,9 @@ This tag MUST NOT occur more than once in a "DocBlock".
 
 ### 7.4. @copyright
 
-The @copyright tag is used to document the copyright information of any
-"Structural element".
+Тэг @copyright используется для вставки информации об создателе Структурного элемента:
 
-#### Syntax
+#### Синтаксис
 
     @copyright <description>
 
@@ -875,22 +874,22 @@ The format of the description is governed by the coding standard of each
 individual project. It is RECOMMENDED to mention the year or years which are
 covered by this copyright and the organization involved.
 
-#### Examples
+#### Пример
 
 ```php
 /**
- * @copyright 1997-2005 The PHP Group
+ * @copyright 1997-2005 Группа разработчиков PHP
  */
 ```
 
 ### 7.5. @deprecated
 
-The @deprecated tag is used to indicate which 'Structural elements' are
-deprecated and are to be removed in a future version.
+Тэг @deprecated используется для указания, что его Структурный элемент
+устарел и будет удалён в последующих версиях.
 
-#### Syntax
+#### Синтаксис
 
-    @deprecated [<"Semantic Version">][:<"Semantic Version">] [<description>]
+    @deprecated [<"Семантичесткая версия">][:<"Семантическая версия">] [<описание>]
 
 #### Description
 
@@ -924,7 +923,7 @@ element is deprecated.
 If the associated element is superseded by another it is RECOMMENDED to add a
 @see tag in the same 'PHPDoc' pointing to the new element.
 
-#### Examples
+#### Пример
 
 ```php
 /**
@@ -945,15 +944,17 @@ If the associated element is superseded by another it is RECOMMENDED to add a
 
 ### 7.6. @example
 
-The @example tag is used to link to an external source code file which contains
+Тэг @example используетя для ссылки на файл из внешнего ресурса
+с кодом примера использования Структурного элемета. The @example tag is used to 
+link to an external source code file which contains
 an example of use for the current "Structural element". An inline variant exists
 with which code from an example file can be shown inline with the Description.
 
-#### Syntax
+#### Синтаксис
 
     @example [URI] [<description>]
 
-or inline:
+или вставкой:
 
     {@example [URI] [:<start>..<end>]}
 
@@ -1022,14 +1023,15 @@ function count()
 TODO: The definition of this item should be discussed and whether it may or
 may not be superceded in part or in whole by the @var tag.
 
-The @global tag is used to denote a global variable or its usage.
+Тэг @global используется для обозначения глобальной переменной или
+её применения.
 
-#### Syntax
+#### Синтаксис
 
-    @global ["Type"] [name]
-    @global ["Type"] [description]
+    @global ["Type"] [имя]
+    @global ["Type"] [описание]
 
-#### Description
+#### Описание
 
 Since there is no standard way to declare global variables, a @global tag MAY
 be used in a DocBlock preceding a global variable's definition. To support
@@ -1123,12 +1125,11 @@ function count()
 
 ### 7.9. @license
 
-The @license tag is used to indicate which license is applicable for the
-associated 'Structural Elements'.
+Тэг @license используется для указания лицензии применяемой к Структурному элементу.
 
-#### Syntax
+#### Синтаксис
 
-    @license [<SPDX identifier>|URI] [name]
+    @license [<SPDX индентификатор>|URI] [название]
 
 #### Description
 
@@ -1149,7 +1150,7 @@ time.
 In case multiple licenses apply, there MUST be one @license tag per applicable
 license.
 
-#### Examples
+#### Пример
 
 ```php
 /**
@@ -1315,9 +1316,9 @@ This tag MUST NOT occur more than once in a "DocBlock".
 
 ### 7.13. @param
 
-The @param tag is used to document a single parameter of a function or method.
+Тэг @param используется при описании одиночного параметра функции или метода.
 
-#### Syntax
+#### Синтаксис
 
     @param ["Type"] [name] [<description>]
 
@@ -1670,7 +1671,7 @@ function count()
 Indicates whether the current "Structural Element" consumes the
 "Structural Element", or project file, that is provided as target.
 
-#### Syntax
+#### Синтаксис
 
     @uses [file | "FQSEN"] [<description>]
 
@@ -1720,18 +1721,17 @@ function executeMyView()
 
 ### 7.22. @var
 
-You may use the @var tag to document the "Type" of the following
-"Structural Elements":
+Вы можите использовать тэг @var для описания Типа структурного элемента:
 
-* Constants, both class and global scope
-* Properties
-* Variables, both global and local scope
+* Констант, как в глобальной области видимости, так и в классе
+* Свойств
+* Переменных, как в глобальной, так и локальной области видимости
 
-#### Syntax
+#### Синтаксис
 
     @var ["Type"] [element_name] [<description>]
 
-#### Description
+#### Описание
 
 The @var tag defines which type of data is represented by a value of a
 Constant, Property or Variable.
@@ -1748,34 +1748,34 @@ This is used when compound statements are used to define a series of Constants
 or Properties. Such a compound statement can only have one DocBlock while several
 items are represented.
 
-#### Examples
+#### Примеры
 
 ```php
-/** @var int $int This is a counter. */
+/** @var int $int Это счётчик. */
 $int = 0;
 
-// there should be no docblock here
+// здесь не должно быть Блока документации
 $int++;
 ```
 
-Or:
+Или:
 
 ```php
 class Foo
 {
-  /** @var string|null Should contain a description */
+  /** @var string|null Должен содержать описание */
   protected $description = null;
 
   public function setDescription($description)
   {
-      // there should be no docblock here
+      // здесь не должно быть Блока документации
       $this->description = $description;
   }
 }
 ```
 
-Another example is to document the variable in a foreach explicitly; many IDEs
-use this information to help you with auto-completion:
+Следущий пример - описание переменной в цикле, многие IDE его используют 
+для реализации автоподстановки:
 
 ```php
 /** @var \Sqlite3 $sqlite */
@@ -1786,36 +1786,36 @@ foreach($connections as $sqlite) {
 }
 ```
 
-Even compound statements may be documented:
+Даже сдожные определения могут быть описаны:
 
 ```php
 class Foo
 {
   protected 
       /**
-       * @var string Should contain a description
+       * @var string Должно быть описание
        */
       $name, 
       /**
-       * @var string Should contain a description
+       * @var string Должно быть описание
        */
       $description;
 
 }
 ```
 
-Or constants:
+Для констант:
 
 ```php
 class Foo
 {
   const 
       /**
-       * @var string Should contain a description
+       * @var string Должно быть описание
        */
       MY_CONST1 = "1", 
       /**
-       * @var string Should contain a description
+       * @var string Должно быть описание
        */
       MY_CONST2 = "2";
 
@@ -1827,7 +1827,7 @@ class Foo
 The @version tag is used to denote some description of "versioning" to an
 element.
 
-#### Syntax
+#### Синтаксис
 
     @version ["Semantic Version"] [<description>]
 
@@ -2034,19 +2034,19 @@ The following keywords are recognized by this PSR:
     In this example the function contains a return statement without a given value. Because there is no actual value
     specified, this also qualifies as type `void`.
 
-10. `null`, the element to which this type applies is a `NULL` value or, in technical terms, does not exist.
+10. `null` - элемент принадлежащий типу `NULL`, который не содержит значения.
 
     A big difference compared to `void` is that this type is used in any situation where the described element may at
     any given time contain an explicit `NULL` value.
 
-    **Example 1:**
+    **Пример 1:**
     ```php
     /**
      * @return null
      */
     function foo()
     {
-        echo 'Hello world';
+        echo 'Привет мир!';
         return null;
     }
     ```
@@ -2054,10 +2054,10 @@ The following keywords are recognized by this PSR:
     This type is commonly used in conjunction with another type to indicate that it is possible that nothing is
     returned.
 
-    **Example 2:**
+    **Пример 2:**
     ```php
     /**
-     * @param bool $create_new When true returns a new stdClass.
+     * @param bool $create_new Когда true: возращяет объект класса stdClass.
      *
      * @return stdClass|null
      */
